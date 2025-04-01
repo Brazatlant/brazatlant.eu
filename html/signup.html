@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script defer src="../js/animationindex.js"></script>
+    <script defer src="../js/menu.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul id="menu"></ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Créer un compte</h1>
+        <form id="signupForm" action="/php/signup.php" method="post" class="login-form">
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="email">Adresse email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="confirmPassword">Confirmer le mot de passe:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            
+            <button type="submit">S'inscrire</button>
+
+            <p class="create-account">
+                Déjà un compte ? <a href="login.html">Connectez-vous <strong>ICI</strong></a>
+            </p>
+        </form>
+
+    </main>
+</body>
+</html>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      fetch('../json/menu.json') // Assurez-vous que le chemin est correct
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`Erreur lors du chargement du menu.json : ${response.status}`);
+              }
+              return response.json();
+          })
+          .then(data => {
+              const menuContainer = document.querySelector('#menu');
+              menuContainer.innerHTML = ''; // Effacer le contenu existant
+
+              // Parcourir les éléments du menu
+              data.menu.forEach(item => {
+                  const li = document.createElement('li');
+                  const a = document.createElement('a');
+                  a.href = item.link || '#'; // Utiliser '#' si aucun lien n'est défini
+                  a.textContent = item.title;
+                  li.appendChild(a);
+
+                  // Vérifier si l'élément a un sous-menu
+                  if (item.submenu) {
+                      const submenu = document.createElement('ul');
+                      item.submenu.forEach(subitem => {
+                          const subLi = document.createElement('li');
+                          const subA = document.createElement('a');
+                          subA.href = subitem.link || '#';
+                          subA.textContent = subitem.title;
+                          subLi.appendChild(subA);
+                          submenu.appendChild(subLi);
+                      });
+                      li.appendChild(submenu);
+                  }
+
+                  menuContainer.appendChild(li);
+              });
+          })
+          .catch(error => {
+              console.error("Erreur :", error);
+          });
+  });
+</script>

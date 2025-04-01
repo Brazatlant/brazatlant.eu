@@ -1,0 +1,30 @@
+{
+    "menu": [
+        {   
+            "title": "Home",
+            "submenu": [
+                { "title": "Ciel", "link": "../index.html" },
+                { "title": "Panel admin", "link": "php/admin.php" }
+            ],
+            "button": true
+        },
+        {
+            "title": "About",
+            "submenu": [
+                { "title": "Mon Twitch !", "link": "https://twitch.tv/brazatlant" },
+                { "title": "Mon discord", "link": "#" }
+            ],
+            "button": true
+        },
+        {
+            "title": "Contact",
+            "link": "#",
+            "button": true
+        },
+        {
+            "title": "Sign in",
+            "link": "../html/login.html",
+            "button": true
+        }
+    ]
+}
