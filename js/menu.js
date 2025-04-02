@@ -1,73 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
     const menuElement = document.getElementById("menu");
 
-    // Charger le fichier menu.json
-    const menuData = {
-        "menu": [
-            {   
-                "title": "Home",
-                "submenu": [
-                    { "title": "Ciel", "link": "../index.html" },
-                    { "title": "Panel admin", "link": "php/admin.php" }
-                ],
-                "button": true
-            },
-            {
-                "title": "About",
-                "submenu": [
-                    { "title": "Mon Twitch !", "link": "https://twitch.tv/brazatlant" },
-                    { "title": "Mon discord", "link": "#" }
-                ],
-                "button": true
-            },
-            {
-                "title": "Contact",
-                "link": "../html/contact.html",
-                "button": true
-            },
-            {
-                "title": "Sign in",
-                "link": "../html/login.html",
-                "button": true
+    if (!menuElement) {
+        console.error("Menu element with ID 'menu' not found");
+        return;
+    }
+
+    fetch('../json/menu.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur réseau ou fichier introuvable');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données reçues :', data); // Debugging
+
+        const menuItems = Array.isArray(data.menu) ? data.menu : []; // Vérification et fallback
+
+        if (menuItems.length === 0) {
+            console.warn("Attention : le menu est vide ou mal formaté.");
+        }
+
+        menuElement.innerHTML = ""; // Reset du menu
+
+        menuItems.forEach(item => {
+            if (!item) return;
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+
+            a.href = item.link || "#";
+            a.textContent = item.title || "Sans titre";
+
+            if (item.button) {
+                a.classList.add("btn");
             }
-        ]
-    };
 
-    // Vider le contenu existant du menu pour éviter les doublons
-    menuElement.innerHTML = "";
+            li.appendChild(a);
 
-    // Générer les éléments du menu principal
-    menuData.menu.forEach(item => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = item.link || "#"; // Utiliser "#" si aucun lien n'est défini
-        a.textContent = item.title;
+            if (Array.isArray(item.submenu) && item.submenu.length > 0) {
+                const submenu = document.createElement("ul");
+                submenu.classList.add("dropdown-menu");
 
-        // Ajouter une classe pour les boutons si nécessaire
-        if (item.button) {
-            a.classList.add("btn");
-        }
+                item.submenu.forEach(subitem => {
+                    if (!subitem) return;
+                    const subLi = document.createElement("li");
+                    const subA = document.createElement("a");
+                    subA.href = subitem.link || "#";
+                    subA.textContent = subitem.title || "Sans titre";
+                    subLi.appendChild(subA);
+                    submenu.appendChild(subLi);
+                });
 
-        li.appendChild(a);
+                li.classList.add("dropdown");
+                li.appendChild(submenu);
+            }
 
-        // Vérifier si l'élément a un sous-menu
-        if (item.submenu) {
-            const submenu = document.createElement("ul");
-            submenu.classList.add("dropdown-menu"); // Ajouter la classe pour le style des sous-menus
-
-            item.submenu.forEach(subitem => {
-                const subLi = document.createElement("li");
-                const subA = document.createElement("a");
-                subA.href = subitem.link || "#";
-                subA.textContent = subitem.title;
-                subLi.appendChild(subA);
-                submenu.appendChild(subLi);
-            });
-
-            li.classList.add("dropdown"); // Ajouter la classe pour le style des éléments avec sous-menus
-            li.appendChild(submenu);
-        }
-
-        menuElement.appendChild(li);
+            menuElement.appendChild(li);
+        });
+    })
+    .catch(error => {
+        console.error("Erreur lors du chargement du menu :", error);
     });
 });
