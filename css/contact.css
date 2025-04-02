@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700');
+
+/* Réinitialisation des marges et des paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  padding: 20px;
+  background-color: #0000004b; /* Couleur de fond par défaut */
+  max-width: 800px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 40px;
+}
+
+h1 {
+  color: #a770eb; /* Couleur du texte du titre en violet */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Styles pour le formulaire de contact */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: #2e2e2e; /* Fond du formulaire */
+  color: #fff; /* Couleur du texte du formulaire */
+  border: 2px solid #4a148c; /* Bordure pour correspondre au style général */
+  border-radius: 0; /* Coins droits pour un effet rectangulaire */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  max-width: 600px; /* Largeur fixe pour centrer le formulaire */
+  margin: 0 auto; /* Centrage horizontal */
+  border-radius: 10px;
+}
+
+.contact-form label {
+  font-size: 16px;
+  color: #a770eb; /* Couleur du texte des labels en violet */
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 0; /* Coins droits pour un effet rectangulaire */
+  font-size: 14px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.contact-form button {
+  background-color: #4A148C;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 0; /* Coins droits pour un effet rectangulaire */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #6A1B9A;
+  transform: scale(1.05);
+}
+
+#toggle-theme {
+  background: transparent;
+  border: none;
+  color: #a770eb;
+  font-size: 24px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Styles pour la popup */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4A148C;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none; /* Cachée par défaut */
+}
+
+.popup.hidden {
+  display: none; /* Classe pour cacher la popup */
+}
+
+.popup-content {
+  text-align: center;
+  font-size: 16px;
+}
+
+.popup-content p {
+  margin: 0;
+}

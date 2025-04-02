@@ -1,12 +1,8 @@
-<!-- filepath: c:\Users\pance\OneDrive\Documents\GitHub\brazatlant.eu\php\admin.php -->
 <?php
 session_start();
 
-// Vérifier si l'utilisateur est connecté et s'il a le grade "admin"
 if (!isset($_SESSION['nom_utilisateur']) || $_SESSION['grade_id'] !== '000002') {
-    // Stocker un message d'erreur dans la session
     $_SESSION['error_message'] = "Vous n'avez pas l'autorisation d'accéder à cette page.";
-    // Rediriger vers la page menu.php
     header("Location: menu.php");
     exit();
 }

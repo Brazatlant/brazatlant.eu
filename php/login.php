@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Configuration de la base de données
 $servername = "127.0.0.1:3306";
 $username = "u695647153_braza_eu";
 $password = "CHKMTob@ep8^vdJ<m+fhq8ZG";
 $dbname = "u695647153_bdd_eu";
 
-// Connexion à la base de données
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Vérifier la connexion

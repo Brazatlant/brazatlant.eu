@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     const menuElement = document.getElementById("menu");
 
-    // Charger le fichier menu.json (chemin relatif ajusté pour fonctionner depuis n'importe quel fichier)
-    fetch("../json/menu.json")
+    // Charger le fichier menu.json
+    fetch("../json/menu.json") // Assurez-vous que le chemin est correct
         .then(response => {
             if (!response.ok) {
                 throw new Error("Erreur lors du chargement du menu.");
             }
             return response.json();
         })
-        .then(menuItems => {
-                        // Générer les éléments du menu
-            menuItems.forEach(item => {
+        .then(data => {
+            // Vider le contenu existant du menu pour éviter les doublons
+            menuElement.innerHTML = "";
+
+            // Générer les éléments du menu principal
+            data.menu.forEach(item => {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
                 a.href = item.link || "#"; // Utiliser "#" si aucun lien n'est défini

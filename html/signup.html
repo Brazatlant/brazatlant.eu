@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <script defer src="../js/animationindex.js"></script>
-    <script defer src="../js/menu.js"></script>
-</head>
+    <head>
+        <link rel="icon" type="image/x-icon" href="../img/logo.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Site Perso</title>
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="/css/login.css">
+        <script defer src="../js/animationindex.js"></script>
+        <script defer src="../menu/menu.js"></script>
+    </head>
 <body>
     <header>
+        <div class="logo">Braza Site</div>  
         <nav>
             <ul id="menu"></ul>
         </nav>
@@ -40,46 +42,3 @@
     </main>
 </body>
 </html>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-      fetch('../json/menu.json') // Assurez-vous que le chemin est correct
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error(`Erreur lors du chargement du menu.json : ${response.status}`);
-              }
-              return response.json();
-          })
-          .then(data => {
-              const menuContainer = document.querySelector('#menu');
-              menuContainer.innerHTML = ''; // Effacer le contenu existant
-
-              // Parcourir les éléments du menu
-              data.menu.forEach(item => {
-                  const li = document.createElement('li');
-                  const a = document.createElement('a');
-                  a.href = item.link || '#'; // Utiliser '#' si aucun lien n'est défini
-                  a.textContent = item.title;
-                  li.appendChild(a);
-
-                  // Vérifier si l'élément a un sous-menu
-                  if (item.submenu) {
-                      const submenu = document.createElement('ul');
-                      item.submenu.forEach(subitem => {
-                          const subLi = document.createElement('li');
-                          const subA = document.createElement('a');
-                          subA.href = subitem.link || '#';
-                          subA.textContent = subitem.title;
-                          subLi.appendChild(subA);
-                          submenu.appendChild(subLi);
-                      });
-                      li.appendChild(submenu);
-                  }
-
-                  menuContainer.appendChild(li);
-              });
-          })
-          .catch(error => {
-              console.error("Erreur :", error);
-          });
-  });
-</script>
