@@ -7,21 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Charger le fichier JSON
-    fetch('/js/json/menu.json')
+    fetch('../js/json/menu.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur réseau ou fichier introuvable');
             }
-            console.log('Réponse brute :', response); // Debugging
             return response.json(); // Convertir la réponse en objet JS
         })
         .then(data => {
-            console.log('Données reçues :', data); // Debugging
-            const menuItems = data.menu; // Récupérer le menu
+            const menuItems = data.menu;
 
             if (!Array.isArray(menuItems)) {
                 console.error("Erreur : menuItems n'est pas un tableau. Valeur reçue :", menuItems);
-                return; // Arrêter l'exécution si ce n'est pas un tableau
+                return;
             }
 
             menuElement.innerHTML = ""; // Réinitialiser le contenu du menu
@@ -69,11 +67,5 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => {
             console.error("Erreur lors du chargement du menu :", error);
-
-            // Fallback menu ou message d'erreur
-            menuElement.innerHTML = `
-                <li><a href="/">Home</a></li>
-                <li><a href="/error">Menu Error</a></li>
-            `;
         });
 });
