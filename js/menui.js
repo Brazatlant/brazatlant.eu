@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    // Simuler une variable PHP injectée dans le HTML pour indiquer si l'utilisateur est connecté
+    const isLoggedIn = window.isLoggedIn || false; // Remplacez par une variable PHP injectée
+    const username = window.username || "Utilisateur"; // Remplacez par une variable PHP injectée
+
     // Charger le fichier JSON
     fetch('../js/json/menu.json')
         .then(response => {
@@ -28,12 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
             menuItems.forEach(item => {
                 if (!item) return;
 
+                // Vérifier si l'élément doit être affiché en fonction de l'état de connexion
+                if (item.requiresLogin && !isLoggedIn) return;
+                if (!item.requiresLogin && isLoggedIn && item.title === "Sign in") return;
+
                 const li = document.createElement("li");
                 const a = document.createElement("a");
 
                 // Définir les propriétés du lien
                 a.href = item.link || "#";
                 a.textContent = item.title || "Sans titre";
+
+                // Remplacer "Sign in" par le nom d'utilisateur si connecté
+                if (isLoggedIn && item.title === "Menu") {
+                    a.textContent = username;
+                }
 
                 // Ajouter une classe pour les boutons si nécessaire
                 if (item.button) {

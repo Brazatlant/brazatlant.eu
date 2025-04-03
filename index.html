@@ -7,6 +7,10 @@
         <title>Site Perso</title>
         <link rel="stylesheet" href="/css/index.css">
         <script defer src="/js/menui.js"></script>
+        <script>
+            window.isLoggedIn = <?php echo isset($_SESSION['nom_utilisateur']) ? 'true' : 'false'; ?>;
+            window.username = "<?php echo isset($_SESSION['nom_utilisateur']) ? $_SESSION['nom_utilisateur'] : ''; ?>";
+        </script>
     </head>
 <body>
     <header>

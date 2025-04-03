@@ -24,7 +24,14 @@
         {
             "title": "Sign in",
             "link": "../html/login.html",
-            "button": true
+            "button": true,
+            "requiresLogin": false
+        },
+        {
+            "title": "Menu",
+            "link": "../php/menu.php",
+            "button": true,
+            "requiresLogin": true
         }
     ]
 }

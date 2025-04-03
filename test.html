@@ -1,15 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['nom_utilisateur'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$error_message = $_SESSION['error_message'] ?? null;
-unset($_SESSION['error_message']); 
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,7 +24,7 @@ unset($_SESSION['error_message']);
             <label for="email">Email:</label>
             <p></strong> <?php echo htmlspecialchars($_SESSION['email']); ?></p>
             
-            <label for="grade">ID du grade</label>
+            <label for="grade"></label>
             <p></strong> <?php echo htmlspecialchars($_SESSION['grade_id']); ?></p>
 
             <label for="grade">Nom du grade:</label>
